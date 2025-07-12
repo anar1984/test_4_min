@@ -1,95 +1,130 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; // Import React and useState hook for state management
 
-function ProductCreatePage() {
-  // Define state for each form field
-  const [productName, setProductName] = useState("");
-  const [productCode, setProductCode] = useState("");
-  const [releaseDate, setReleaseDate] = useState("");
-  const [productCategory, setProductCategory] = useState("Electronics");
-  const [productDescription, setProductDescription] = useState("");
+// Define the ProductCreatePage component which receives two props:
+// onAddProduct - function to add a product to the shared list
+// onNavigate - function to change the current page
+function ProductCreatePage({ onAddProduct, onNavigate }) {
+  // Define state variables for each form input field using useState hook
+  const [productName, setProductName] = useState(""); // State for product name
+  const [productCode, setProductCode] = useState(""); // State for product code
+  const [releaseDate, setReleaseDate] = useState(""); // State for release date
+  const [productCategory, setProductCategory] = useState("Electronics"); // State for category, default Electronics
+  const [productDescription, setProductDescription] = useState(""); // State for product description
 
-  // Handle Save button click
+  // Function called when the Save button is clicked
   const saveProduct = () => {
-    // Simple validation
+    // Check if productName is empty, if so alert user and stop saving
     if (!productName) {
       alert("Product name is required.");
-      return;
+      return; // Exit the function early
     }
+    // Check if productCode is empty, if so alert user and stop saving
     if (!productCode) {
       alert("Product code is required.");
-      return;
+      return; // Exit the function early
     }
 
-    // For now, just log the data to console
-    const data = {
+    // Create a new product object using current state values
+    const newProduct = {
       productName,
       productCode,
       releaseDate,
       productCategory,
       productDescription,
     };
-    console.log("Saving product:", data);
 
-    // Clear form after save
+    // Call the onAddProduct function passed from parent with the new product
+    onAddProduct(newProduct);
+
+    // Notify user that product was added successfully
+    alert("Product added successfully!");
+
+    // Navigate to the product list page
+    onNavigate("list");
+
+    // Clear all input fields by resetting state to initial values
     setProductName("");
     setProductCode("");
     setReleaseDate("");
-    setProductCategory("Electronics"); 
+    setProductCategory("Electronics");
     setProductDescription("");
   };
 
+  // Define styles for the "Back to Main Page" button
+  const backButtonStyle = {
+    marginTop: 15,
+    backgroundColor: "gray",
+    color: "white",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: 5,
+    cursor: "pointer",
+    fontSize: 16,
+  };
+
+  // The JSX returned by the component - the form UI
   return (
     <div
       style={{
-        backgroundColor: "#f4f4f4",
-        width: 600,
-        borderRadius: 5,
-        padding: 20,
-        margin: "10px auto",
-        fontFamily: "Arial, sans-serif",
+        backgroundColor: "#f4f4f4", // Light gray background for the form container
+        width: 600, // Fixed width
+        borderRadius: 5, // Rounded corners
+        padding: 20, // Inner spacing
+        margin: "10px auto", // Center horizontally with margin top/bottom
+        fontFamily: "Arial, sans-serif", // Font styling
       }}
     >
+      {/* Title of the page */}
       <h1 style={{ color: "blue" }}>Product Create Page</h1>
 
+      {/* Label for product name input */}
       <label>Product Name</label>
       <br />
+      {/* Input field bound to productName state */}
       <input
         type="text"
-        value={productName}
-        onChange={(e) => setProductName(e.target.value)}
+        value={productName} // Controlled input value
+        onChange={(e) => setProductName(e.target.value)} // Update state on user input
         placeholder="Product Name"
-        style={{ width: "100%", padding: 8, marginBottom: 15 }}
+        style={{ width: "100%", padding: 8, marginBottom: 15 }} // Styling
       />
       <br />
 
+      {/* Label for product code input */}
       <label>Product Code</label>
       <br />
+      {/* Input field bound to productCode state */}
       <input
         type="text"
-        value={productCode}
-        onChange={(e) => setProductCode(e.target.value)}
+        value={productCode} // Controlled input value
+        onChange={(e) => setProductCode(e.target.value)} // Update state on user input
         placeholder="Product Code"
-        style={{ width: "100%", padding: 8, marginBottom: 15 }}
+        style={{ width: "100%", padding: 8, marginBottom: 15 }} // Styling
       />
       <br />
 
+      {/* Label for release date input */}
       <label>Release Date</label>
       <br />
+      {/* Date input bound to releaseDate state */}
       <input
         type="date"
-        value={releaseDate}
-        onChange={(e) => setReleaseDate(e.target.value)}
-        style={{ width: "100%", padding: 8, marginBottom: 15 }}
+        value={releaseDate} // Controlled input value
+        onChange={(e) => setReleaseDate(e.target.value)} // Update state on user input
+        style={{ width: "100%", padding: 8, marginBottom: 15 }} // Styling
       />
       <br />
 
+      {/* Label for category selection */}
       <label>Product Category</label>
       <br />
+      {/* Select dropdown bound to productCategory state */}
       <select
-        value={productCategory}
-        onChange={(e) => setProductCategory(e.target.value)}
-        style={{ width: "100%", padding: 8, marginBottom: 15 }}
+        value={productCategory} // Controlled select value
+        onChange={(e) => setProductCategory(e.target.value)} // Update state on change
+        style={{ width: "100%", padding: 8, marginBottom: 15 }} // Styling
       >
+        {/* Options for category */}
         <option>Electronics</option>
         <option>Clothing</option>
         <option>Books</option>
@@ -99,19 +134,22 @@ function ProductCreatePage() {
       </select>
       <br />
 
+      {/* Label for product description */}
       <label>Product Description</label>
       <br />
+      {/* Textarea bound to productDescription state */}
       <textarea
-        value={productDescription}
-        onChange={(e) => setProductDescription(e.target.value)}
+        value={productDescription} // Controlled textarea value
+        onChange={(e) => setProductDescription(e.target.value)} // Update state on user input
         placeholder="Product Description"
-        rows={4}
-        style={{ width: "100%", padding: 8, marginBottom: 20 }}
+        rows={4} // Number of visible text lines
+        style={{ width: "100%", padding: 8, marginBottom: 20 }} // Styling
       ></textarea>
       <br />
 
+      {/* Save button triggers saveProduct function */}
       <button
-        onClick={saveProduct}
+        onClick={saveProduct} // On click event handler
         style={{
           backgroundColor: "blue",
           color: "white",
@@ -124,8 +162,13 @@ function ProductCreatePage() {
       >
         Save
       </button>
+
+      {/* Back button triggers navigation back to Main Page */}
+      <button onClick={() => onNavigate("main")} style={backButtonStyle}>
+        Back to Main Page
+      </button>
     </div>
   );
 }
 
-export default ProductCreatePage;
+export default ProductCreatePage; // Export component for use in other files
