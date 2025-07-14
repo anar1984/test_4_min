@@ -78,7 +78,7 @@ function ProductUpdatePage({ products, onUpdateProduct, onNavigate }) {
         backgroundColor: "#f4f4f4",
         width: 600,
         borderRadius: 5,
-        padding: 20,
+        padding: '20px 40px 20px 20px',
         margin: "10px auto",
         fontFamily: "Arial, sans-serif",
       }}
@@ -108,6 +108,8 @@ function ProductUpdatePage({ products, onUpdateProduct, onNavigate }) {
       >
         Find Product
       </button>
+
+      <hr></hr>
 
       <label>Product Name</label>
       <br />

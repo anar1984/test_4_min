@@ -53,6 +53,7 @@ function ProductCreatePage({ onAddProduct, onNavigate }) {
   // Define styles for the "Back to Main Page" button
   const backButtonStyle = {
     marginTop: 15,
+    marginLeft:15,
     backgroundColor: "gray",
     color: "white",
     padding: "10px 20px",
@@ -69,7 +70,7 @@ function ProductCreatePage({ onAddProduct, onNavigate }) {
         backgroundColor: "#f4f4f4", // Light gray background for the form container
         width: 600, // Fixed width
         borderRadius: 5, // Rounded corners
-        padding: 20, // Inner spacing
+        padding: "20px 40px 20px 20px", // Inner spacing
         margin: "10px auto", // Center horizontally with margin top/bottom
         fontFamily: "Arial, sans-serif", // Font styling
       }}
